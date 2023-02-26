@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package aocfinder;
+
+option go_package = "github.com/brotherlogic/aocfinder/proto";
+
+message WorkingOn {
+    int32 year = 1;
+    int32 day = 2;
+    int32 part = 3;
+    int32 corresponding_issue = 4;
+}
