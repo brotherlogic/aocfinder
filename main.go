@@ -15,6 +15,7 @@ import (
 	"google.golang.org/grpc/status"
 
 	pb "github.com/brotherlogic/adventofcode/proto"
+	pbghc "github.com/brotherlogic/githubcard/proto"
 )
 
 func getClient() (pb.AdventServerServiceClient, error) {
@@ -71,6 +72,24 @@ func assess(year, day, part int) (bool, error) {
 	return true, nil
 }
 
+func raiseIssue(year, day, part int) error {
+	ctx, cancel := utils.ManualContext("aocfinder-issue", time.Minute)
+	defer cancel()
+
+	conn, err := utils.LFDialServer(ctx, "githubcard")
+	if err != nil {
+		return err
+	}
+
+	client := pbghc.NewGithubClient(conn)
+	_, err = client.AddIssue(ctx, &pbghc.Issue{
+		Service: "adventofcode",
+		Title:   fmt.Sprintf("Solve AOC Puzzle (%v, %v part %v)", year, day, part),
+		Body:    "Solve it",
+	})
+	return err
+}
+
 func main() {
 	for year := 2015; year <= time.Now().Year(); year++ {
 		for day := 1; day <= time.Now().Day(); day++ {
@@ -82,7 +101,10 @@ func main() {
 				}
 
 				if !val {
-					fmt.Printf("FOUND\n")
+					err := raiseIssue(year, day, part)
+					if err != nil {
+						log.Fatalf("Bad issue: %v", err)
+					}
 					return
 				}
 			}
