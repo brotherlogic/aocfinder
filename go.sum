@@ -6,6 +6,8 @@ github.com/brotherlogic/adventofcode v0.65.0 h1:h9OBP10rmqY70bJYm+lX0sgPEs5bqUqe
 github.com/brotherlogic/adventofcode v0.65.0/go.mod h1:5257c67OXmsXJwt+PbCEpGKXesPqQaziJH0XJBKaAy0=
 github.com/brotherlogic/discovery v0.0.0-20230220192452-aa3448564fd0 h1:CTnrE+YIXcCRQaUyKBD4TZLjJ4EFKAQvvd/trtMoiwk=
 github.com/brotherlogic/discovery v0.0.0-20230220192452-aa3448564fd0/go.mod h1:mRfExHb/XLoYnWd2X0lmuo62qxCHRfWdItW5Ll4PhUs=
+github.com/brotherlogic/githubcard v0.0.0-20230220025615-94a8b7a71a1b h1:GFVihoPCw5WI+1NmXSraol02Y4+S+lwhSF0bMk+1t10=
+github.com/brotherlogic/githubcard v0.0.0-20230220025615-94a8b7a71a1b/go.mod h1:mlnuWh9CUudeZ5AI0d3PkzCueMiwRprRORYHpqjEWRA=
 github.com/brotherlogic/godiscogs v0.0.0-20230104162206-2759618e526a h1:IfshVkQX4s3zpzbQXJT5w/6llAM7dcmT53UqDFu/L3Q=
 github.com/brotherlogic/goserver v0.0.0-20230208171911-c95aab060a3f h1:cS0kuScVGRpGQkVb9YN2W8kRGpEX9Nr6ktRd87g7iCE=
 github.com/brotherlogic/goserver v0.0.0-20230208171911-c95aab060a3f/go.mod h1:S22R1E9LVceteoyVIRrcekAcnSmADsdMSF7XgCuteHU=
@@ -42,7 +44,7 @@ go.opentelemetry.io/otel/trace v1.13.0 h1:CBgRZ6ntv+Amuj1jDsMhZtlAPT6gbyIRdaIzFh
 go.opentelemetry.io/otel/trace v1.13.0/go.mod h1:muCvmmO9KKpvuXSf3KKAXXB2ygNYHQ+ZfI5X08d3tds=
 golang.org/x/net v0.7.0 h1:rJrUqqhjsgNp7KqAIc25s9pZnjU7TUcSY7HcVZjdn1g=
 golang.org/x/net v0.7.0/go.mod h1:2Tu9+aMcznHK/AK1HMvgo6xiTLG5rD5rZLDS+rp2Bjs=
-golang.org/x/oauth2 v0.4.0 h1:NF0gk8LVPg1Ml7SSbGyySuoxdsXitj7TvgvuRxIMc/M=
+golang.org/x/oauth2 v0.5.0 h1:HuArIo48skDwlrvM3sEdHXElYslAMsf3KwRkkW4MC4s=
 golang.org/x/sys v0.5.0 h1:MUK/U/4lj1t1oPg0HfuXDN/Z1wv31ZJ/YcPiGccS4DU=
 golang.org/x/sys v0.5.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/text v0.7.0 h1:4BRB4x83lYWy72KwLD/qYDuTu7q9PjSagHvijDw7cLo=

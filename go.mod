@@ -1,9 +1,10 @@
 module github.com/brotherlogic/aocfinder
 
-go 1.19
+go 1.18
 
 require (
 	github.com/brotherlogic/adventofcode v0.65.0
+	github.com/brotherlogic/githubcard v0.0.0-20230220025615-94a8b7a71a1b
 	github.com/brotherlogic/goserver v0.0.0-20230208171911-c95aab060a3f
 	google.golang.org/grpc v1.53.0
 )
