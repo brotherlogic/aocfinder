@@ -14,6 +14,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
+	"google.golang.org/protobuf/types/known/anypb"
 
 	pbaoc "github.com/brotherlogic/adventofcode/proto"
 	pb "github.com/brotherlogic/aocfinder/proto"
@@ -142,6 +143,17 @@ func main() {
 					wo.Part = int32(part)
 					wo.Year = int32(year)
 					wo.CorrespondingIssue = num
+
+					bytes, err := proto.Marshal(wo)
+					if err != nil {
+						log.Fatalf("Bad marshal: %v", err)
+					}
+					tctx, tcancel := utils.ManualContext("aocfinder", time.Minute)
+					defer tcancel()
+					_, err = client.Write(tctx, &rspb.WriteRequest{Key: "aocfinder/config", Value: &anypb.Any{Value: bytes}})
+					if err != nil {
+						log.Fatalf("Bad write: %v", err)
+					}
 				}
 			}
 		}
