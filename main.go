@@ -13,18 +13,21 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/proto"
 
-	pb "github.com/brotherlogic/adventofcode/proto"
+	pbaoc "github.com/brotherlogic/adventofcode/proto"
+	pb "github.com/brotherlogic/aocfinder/proto"
 	pbghc "github.com/brotherlogic/githubcard/proto"
+	rspb "github.com/brotherlogic/rstore/proto"
 )
 
-func getClient() (pb.AdventServerServiceClient, error) {
-	clientCert, err := tls.LoadX509KeyPair("/home/brotherlogic/keys/client.pem", "/home/brotherlogic/keys/client.key")
+func getClient() (pbaoc.AdventServerServiceClient, error) {
+	clientCert, err := tls.LoadX509KeyPair("/home/simon/keys/client.pem", "/home/simon/keys/client.key")
 	if err != nil {
 		return nil, err
 	}
 
-	trustedCert, err := ioutil.ReadFile("/home/brotherlogic/keys/cacert.pem")
+	trustedCert, err := ioutil.ReadFile("/home/simon/keys/cacert.pem")
 	if err != nil {
 		return nil, err
 	}
@@ -49,7 +52,7 @@ func getClient() (pb.AdventServerServiceClient, error) {
 		return nil, err
 	}
 
-	return pb.NewAdventServerServiceClient(conn), nil
+	return pbaoc.NewAdventServerServiceClient(conn), nil
 }
 
 func assess(year, day, part int) (bool, error) {
@@ -61,7 +64,7 @@ func assess(year, day, part int) (bool, error) {
 		return false, err
 	}
 
-	_, err = client.Solve(ctx, &pb.SolveRequest{Year: int32(year), Day: int32(day), Part: int32(part)})
+	_, err = client.Solve(ctx, &pbaoc.SolveRequest{Year: int32(year), Day: int32(day), Part: int32(part)})
 	if err != nil {
 		if status.Code(err) == codes.Unknown {
 			return false, nil
@@ -72,25 +75,54 @@ func assess(year, day, part int) (bool, error) {
 	return true, nil
 }
 
-func raiseIssue(year, day, part int) error {
+func raiseIssue(year, day, part int) (int32, error) {
 	ctx, cancel := utils.ManualContext("aocfinder-issue", time.Minute)
 	defer cancel()
 
 	conn, err := utils.LFDialServer(ctx, "githubcard")
 	if err != nil {
-		return err
+		return -1, err
 	}
 
 	client := pbghc.NewGithubClient(conn)
-	_, err = client.AddIssue(ctx, &pbghc.Issue{
+	issue, err := client.AddIssue(ctx, &pbghc.Issue{
 		Service: "adventofcode",
 		Title:   fmt.Sprintf("Solve AOC Puzzle (%v, %v part %v)", year, day, part),
 		Body:    "Solve it",
 	})
-	return err
+	if err != nil {
+		return -1, err
+	}
+	return issue.Number, nil
 }
 
 func main() {
+	dctx, dcancel := utils.ManualContext("aocfinder", time.Minute)
+	defer dcancel()
+
+	wo := &pb.WorkingOn{}
+
+	conn, err := utils.LFDialServer(dctx, "rstore")
+	if err != nil {
+		log.Fatalf("Bad dial: %v", err)
+	}
+
+	client := rspb.NewRStoreServiceClient(conn)
+	rconf, err := client.Read(dctx, &rspb.ReadRequest{Key: "aocfinder/config"})
+	if status.Code(err) != codes.NotFound {
+		if err != nil {
+			log.Fatalf("bad read: %v", err)
+		}
+		err = proto.Unmarshal(rconf.GetValue().GetValue(), wo)
+		if err != nil {
+			log.Fatalf("Bad unmarshal: %v", err)
+		}
+	}
+
+	if wo.CorrespondingIssue > 0 {
+		log.Fatalf("Already working on an issue: %v", wo)
+	}
+
 	for year := 2015; year <= time.Now().Year(); year++ {
 		for day := 1; day <= time.Now().Day(); day++ {
 			for part := 1; part <= 2; part++ {
@@ -101,11 +133,15 @@ func main() {
 				}
 
 				if !val {
-					err := raiseIssue(year, day, part)
+					num, err := raiseIssue(year, day, part)
 					if err != nil {
 						log.Fatalf("Bad issue: %v", err)
 					}
-					return
+
+					wo.Day = int32(day)
+					wo.Part = int32(part)
+					wo.Year = int32(year)
+					wo.CorrespondingIssue = num
 				}
 			}
 		}
