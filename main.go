@@ -120,6 +120,8 @@ func main() {
 		}
 	}
 
+	wo.LastRun = time.Now().Unix()
+
 	if wo.CorrespondingIssue > 0 {
 		log.Fatalf("Already working on an issue: %v", wo)
 	}

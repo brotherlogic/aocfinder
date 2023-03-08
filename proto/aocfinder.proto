@@ -9,4 +9,5 @@ message WorkingOn {
     int32 day = 2;
     int32 part = 3;
     int32 corresponding_issue = 4;
+    int64 last_run = 5;
 }
