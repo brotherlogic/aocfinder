@@ -121,6 +121,8 @@ func main() {
 		}
 	}
 
+	wo.LastRun = time.Now().Unix()
+
 	conn, err = utils.LFDialServer(dctx, "aocfinder")
 	if err != nil {
 		log.Fatalf("Bad dial: %v", err)
