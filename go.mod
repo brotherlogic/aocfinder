@@ -3,19 +3,20 @@ module github.com/brotherlogic/aocfinder
 go 1.18
 
 require (
-	github.com/brotherlogic/adventofcode v0.65.0
-	github.com/brotherlogic/githubcard v0.0.0-20230307023257-61031bbc3460
-	github.com/brotherlogic/goserver v0.0.0-20230208171911-c95aab060a3f
-	github.com/brotherlogic/rstore v0.15.0
+	github.com/brotherlogic/adventofcode v0.66.0
+	github.com/brotherlogic/aoctracker v0.3.0
+	github.com/brotherlogic/githubcard v0.0.0-20230308002203-262e2dd5e3bf
+	github.com/brotherlogic/goserver v0.0.0-20230308065104-44cc7e357cc1
+	github.com/brotherlogic/rstore v0.17.0
 	google.golang.org/grpc v1.53.0
-	google.golang.org/protobuf v1.28.1
+	google.golang.org/protobuf v1.29.0
 )
 
 require (
 	github.com/brotherlogic/discovery v0.0.0-20230303024637-f60d614a659d // indirect
 	github.com/go-logr/logr v1.2.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
-	github.com/golang/protobuf v1.5.2 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.40.0 // indirect
 	go.opentelemetry.io/otel v1.14.0 // indirect
 	go.opentelemetry.io/otel/metric v0.37.0 // indirect

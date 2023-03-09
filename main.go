@@ -18,6 +18,7 @@ import (
 
 	pbaoc "github.com/brotherlogic/adventofcode/proto"
 	pb "github.com/brotherlogic/aocfinder/proto"
+	atpb "github.com/brotherlogic/aoctracker/proto"
 	pbghc "github.com/brotherlogic/githubcard/proto"
 	rspb "github.com/brotherlogic/rstore/proto"
 )
@@ -119,6 +120,13 @@ func main() {
 			log.Fatalf("Bad unmarshal: %v", err)
 		}
 	}
+
+	conn, err = utils.LFDialServer(dctx, "aocfinder")
+	if err != nil {
+		log.Fatalf("Bad dial: %v", err)
+	}
+	aocclient := atpb.NewAOCTrackerServiceClient(conn)
+	aocclient.Track(dctx, &atpb.TrackRequest{CurrentYear: wo.GetYear()})
 
 	if wo.CorrespondingIssue > 0 {
 		log.Fatalf("Already working on an issue: %v", wo)
