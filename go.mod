@@ -8,8 +8,8 @@ require (
 	github.com/brotherlogic/githubcard v0.0.0-20230308002203-262e2dd5e3bf
 	github.com/brotherlogic/goserver v0.0.0-20230308065104-44cc7e357cc1
 	github.com/brotherlogic/rstore v0.17.0
-	google.golang.org/grpc v1.53.0
-	google.golang.org/protobuf v1.29.1
+	google.golang.org/grpc v1.56.3
+	google.golang.org/protobuf v1.30.0
 )
 
 require (
@@ -24,5 +24,5 @@ require (
 	golang.org/x/net v0.17.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
-	google.golang.org/genproto v0.0.0-20230306155012-7f2fa6fef1f4 // indirect
+	google.golang.org/genproto v0.0.0-20230410155749-daa745c078e1 // indirect
 )
