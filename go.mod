@@ -9,7 +9,7 @@ require (
 	github.com/brotherlogic/goserver v0.0.0-20230308065104-44cc7e357cc1
 	github.com/brotherlogic/rstore v0.17.0
 	google.golang.org/grpc v1.59.0
-	google.golang.org/protobuf v1.31.0
+	google.golang.org/protobuf v1.33.0
 )
 
 require (
